@@ -1,0 +1,45 @@
+{
+  "name": "LaTeX Resume",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "James-Yu.latex-workshop",
+        "streetsidesoftware.code-spell-checker",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "latex-workshop.latex.tools": [
+          {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+              "-pdf",
+              "-outdir=build",
+              "%DOC%"
+            ]
+          }
+        ],
+        "latex-workshop.latex.recipes": [
+          {
+            "name": "latexmk",
+            "tools": [
+              "latexmk"
+            ]
+          }
+        ],
+        "latex-workshop.latex.autoBuild.run": "onSave",
+        "latex-workshop.view.pdf.viewer": "tab",
+        "latex-workshop.synctex.afterBuild.enabled": true,
+        "latex-workshop.intellisense.citation.enabled": true,
+        "latex-workshop.message.update.show": false,
+        "files.autoSave": "onFocusChange",
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "postCreateCommand": "mkdir -p build",
+  "remoteUser": "vscode"
+}

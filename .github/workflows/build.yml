@@ -1,0 +1,42 @@
+name: Build Resume PDF
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/xu-cheng/texlive-full:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile LaTeX
+        run: latexmk -pdf -outdir=build resume.tex
+
+      - name: Generate date string
+        id: date
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+
+      - name: Upload preview artifact (PR)
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: resume-preview
+          path: build/resume.pdf
+
+      - name: Create Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.date.outputs.date }}
+          name: "Resume ${{ steps.date.outputs.date }}"
+          files: |
+            build/resume.pdf -> resume-${{ steps.date.outputs.date }}.pdf
+            build/resume.pdf -> resume.pdf
+          make_latest: true
+          generate_release_notes: false
