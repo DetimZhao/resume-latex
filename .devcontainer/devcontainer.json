@@ -35,6 +35,7 @@
         "latex-workshop.synctex.afterBuild.enabled": true,
         "latex-workshop.intellisense.citation.enabled": true,
         "latex-workshop.message.update.show": false,
+        "latex-workshop.formatting.latex": "latexindent",
         "files.autoSave": "onFocusChange",
         "editor.formatOnSave": true
       }
