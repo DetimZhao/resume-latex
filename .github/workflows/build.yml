@@ -7,6 +7,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,6 +32,11 @@ jobs:
           name: resume-preview
           path: build/resume.pdf
 
+      - name: Prepare release assets
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          cp build/resume.pdf build/resume-${{ steps.date.outputs.date }}.pdf
+
       - name: Create Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
@@ -36,7 +44,7 @@ jobs:
           tag_name: v${{ steps.date.outputs.date }}
           name: "Resume ${{ steps.date.outputs.date }}"
           files: |
-            build/resume.pdf -> resume-${{ steps.date.outputs.date }}.pdf
-            build/resume.pdf -> resume.pdf
+            build/resume.pdf
+            build/resume-${{ steps.date.outputs.date }}.pdf
           make_latest: true
           generate_release_notes: false
