@@ -133,7 +133,11 @@ Tailoring edits `src/*.tex` in-place on a branch. `main` stays pristine:
    "tailor my resume for a platform engineer role at Google. emphasize HPC and Kubernetes."
    ```
 3. opencode reads `src/*.tex` + JD, applies per-section tailoring
-4. opencode compiles with tagged jobname: `latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=tailored resume.tex`
+4. opencode compiles with tagged jobname, then cleans aux files (keeps PDF only):
+   ```bash
+   latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=tailored resume.tex
+   latexmk -c -outdir=tailored
+   ```
 5. opencode checks page count:
    ```bash
    pdfinfo tailored/Detim_Zhao_Resume-*.pdf | grep Pages
