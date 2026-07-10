@@ -125,30 +125,31 @@ When asked to tailor the resume for a specific job description (JD):
 
 ### Tailoring Workflow (Local, via opencode)
 
-Tailoring edits `src/*.tex` in-place. No branches, no commits. `main` is always restored after:
+Tailoring edits `src/*.tex` in-place on a branch. `main` stays pristine:
 
-1. Prompt opencode with the JD (or paste it directly):
+1. Create a branch: `git checkout -b tailored/<company>-<role>`
+2. Prompt opencode with the JD:
    ```
    "tailor my resume for a platform engineer role at Google. emphasize HPC and Kubernetes."
    ```
-2. opencode reads `src/*.tex` + JD, applies per-section tailoring
-3. opencode compiles with tagged jobname: `latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=build resume.tex`
-4. opencode checks page count:
+3. opencode reads `src/*.tex` + JD, applies per-section tailoring
+4. opencode compiles with tagged jobname: `latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=build resume.tex`
+5. opencode checks page count:
    ```bash
    pdfinfo build/Detim_Zhao_Resume-*.pdf | grep Pages
    ```
    If >1 page: drop or condense content until it fits before showing it to you.
-5. You review the PDF in VSCode
-6. When done reviewing, restore canonical instantly:
+6. You review the PDF in VSCode, iterate as needed
+7. When done, switch back to clean `main`:
    ```bash
-   git checkout src/
+   git checkout main
    ```
-   All edits discarded, `main` is exactly as before.
-7. Clean up tailored build artifacts:
+8. Delete the branch when no longer needed:
    ```bash
-   rm build/Detim_Zhao_Resume-Google-PlatformEngineer*
+   git branch -D tailored/<company>-<role>
+   # Or bulk-clean all tailoring branches:
+   # git branch | grep tailored | xargs git branch -D
    ```
-   This removes only the tagged PDF + aux files, leaving canonical build cache intact.
 
 If you want to **keep** a tailored PDF permanently, trigger the CI dispatch (next section).
 
@@ -182,7 +183,7 @@ Go to Actions → "Build Resume PDF" → "Run workflow":
 - **DO** reword existing bullets with JD keywords
 - **DO** uncomment archived content if it matches
 - **DO** compile after every edit to verify
-- **DO** restore `main` after tailoring with `git checkout src/`
+- **DO** use `tailored/<company>-<role>` branches — never edit `main` directly for tailoring
 - **DO NOT** invent new experience, skills, or project details
 - **DO NOT** change the section ordering in `resume.tex`
 - **DO NOT** modify `custom-commands.tex` — macros are stable
