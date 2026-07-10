@@ -32,6 +32,22 @@ VERSIONS.md             # Version changelog
 
 ## Build Commands
 
+### Local (Docker — recommended, same image as CI)
+```bash
+# Compile
+docker run --rm -v "$PWD":/workspace -w /workspace texlive/texlive:latest \
+  latexmk -pdf -jobname=Detim_Zhao_Resume -outdir=build resume.tex
+
+# Clean aux files
+docker run --rm -v "$PWD":/workspace -w /workspace texlive/texlive:latest \
+  latexmk -c -outdir=build
+
+# Full clean (removes PDF too)
+docker run --rm -v "$PWD":/workspace -w /workspace texlive/texlive:latest \
+  latexmk -C -outdir=build
+```
+Note: macOS MacTeX Basic lacks `latexmk` and some packages (e.g. `fontawesome5`). Use Docker above or the Dev Container.
+
 ### Local (Dev Container)
 ```bash
 latexmk -pdf -jobname=Detim_Zhao_Resume -outdir=build resume.tex
@@ -117,8 +133,13 @@ Tailoring edits `src/*.tex` in-place. No branches, no commits. `main` is always 
    ```
 2. opencode reads `src/*.tex` + JD, applies per-section tailoring
 3. opencode compiles with tagged jobname: `latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=build resume.tex`
-4. You review `build/Detim_Zhao_Resume-Google-PlatformEngineer.pdf` in VSCode
-5. When done reviewing, restore canonical instantly:
+4. opencode checks page count:
+   ```bash
+   pdfinfo build/Detim_Zhao_Resume-*.pdf | grep Pages
+   ```
+   If >1 page: drop or condense content until it fits before showing it to you.
+5. You review the PDF in VSCode
+6. When done reviewing, restore canonical instantly:
    ```bash
    git checkout src/
    ```
