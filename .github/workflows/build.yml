@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/xu-cheng/texlive-full:latest
+      image: texlive/texlive:latest
     steps:
       - uses: actions/checkout@v4
 

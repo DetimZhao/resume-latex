@@ -1,5 +1,3 @@
-FROM ghcr.io/xu-cheng/texlive-full:latest
-
-RUN tlmgr install latexmk 2>/dev/null || true
+FROM texlive/texlive:latest
 
 WORKDIR /workspace
