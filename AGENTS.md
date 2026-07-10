@@ -140,7 +140,9 @@ Tailoring edits `src/*.tex` in-place on a branch. `main` stays pristine:
 4. opencode compiles with tagged jobname, then cleans aux files (keeps PDF only):
    ```bash
    latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=tailored resume.tex
-   latexmk -c -outdir=tailored
+   latexmk -c -outdir=tailored resume.tex
+   # latexmk -c doesn't handle -jobname clean; remove tailored aux files directly:
+   find tailored -type f ! -name '*.pdf' -delete
    ```
 5. opencode checks page count:
    ```bash
