@@ -133,10 +133,10 @@ Tailoring edits `src/*.tex` in-place on a branch. `main` stays pristine:
    "tailor my resume for a platform engineer role at Google. emphasize HPC and Kubernetes."
    ```
 3. opencode reads `src/*.tex` + JD, applies per-section tailoring
-4. opencode compiles with tagged jobname: `latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=build resume.tex`
+4. opencode compiles with tagged jobname: `latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=tailored resume.tex`
 5. opencode checks page count:
    ```bash
-   pdfinfo build/Detim_Zhao_Resume-*.pdf | grep Pages
+   pdfinfo tailored/Detim_Zhao_Resume-*.pdf | grep Pages
    ```
    If >1 page: drop or condense content until it fits before showing it to you.
 6. You review the PDF in VSCode, iterate as needed
@@ -149,6 +149,10 @@ Tailoring edits `src/*.tex` in-place on a branch. `main` stays pristine:
    git branch -D tailored/<company>-<role>
    # Or bulk-clean all tailoring branches:
    # git branch | grep tailored | xargs git branch -D
+   ```
+9. Clean up tailored build artifacts:
+   ```bash
+   rm -rf tailored/
    ```
 
 If you want to **keep** a tailored PDF permanently, trigger the CI dispatch (next section).
