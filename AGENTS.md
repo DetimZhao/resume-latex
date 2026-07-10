@@ -43,7 +43,7 @@ latexmk -C -outdir=build          # Full clean (removes PDF too)
 - **On push to `main`**: compiles → creates Release with `Detim_Zhao_Resume.pdf` + `Detim_Zhao_Resume-YYYYMMDD-HHMM.pdf`
 - **On PR**: compiles → uploads artifact (preview only, no release)
 - **`workflow_dispatch`**: manual trigger (for future agent-driven tailoring)
-- **Environment variable**: `RESUME_NAME: Detim_Zhao_Resume` controls output filename
+- **Environment variable**: `BASE_NAME: Detim_Zhao_Resume` controls output filename
 
 ## LaTeX Conventions
 
@@ -109,29 +109,22 @@ When asked to tailor the resume for a specific job description (JD):
 
 ### Tailoring Workflow (Local, via opencode)
 
-When tailoring for a role, always work on a branch so `main` stays canonical:
+Tailoring edits `src/*.tex` in-place. No branches, no commits. `main` is always restored after:
 
-```bash
-git checkout main
-git checkout -b tailored/<company>-<role>
-# Example: git checkout -b tailored/google-platform-engineer
-```
-
-Then:
-
-1. Read the JD and extract key keywords, technologies, and domain requirements
-2. Read `src/skills.tex` — match skills to JD, reorder/emphasize
-3. Read `src/experience.tex` — reword bullets with JD keywords, reorder, consider uncommenting
-4. Read `src/projects.tex` — reorder, reword, consider uncommenting
-5. Read `src/education.tex` — optionally activate relevant coursework
-6. Set jobname for output: `-jobname=Detim_Zhao_Resume-<Company>-<Role>` (e.g., `-jobname=Detim_Zhao_Resume-Google-PlatformEngineer`)
-7. Compile: `latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=build resume.tex`
-8. Verify: `ls build/Detim_Zhao_Resume-Google-PlatformEngineer.pdf` — check page count (target 1 page)
-9. Push branch → CI builds artifact (no release). Delete branch when done:
-   ```bash
-   git checkout main
-   git branch -d tailored/<company>-<role>
+1. Prompt opencode with the JD (or paste it directly):
    ```
+   "tailor my resume for a platform engineer role at Google. emphasize HPC and Kubernetes."
+   ```
+2. opencode reads `src/*.tex` + JD, applies per-section tailoring
+3. opencode compiles with tagged jobname: `latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=build resume.tex`
+4. You review `build/Detim_Zhao_Resume-Google-PlatformEngineer.pdf` in VSCode
+5. When done reviewing, restore canonical instantly:
+   ```bash
+   git checkout src/
+   ```
+   All edits discarded, `main` is exactly as before.
+
+If you want to **keep** a tailored PDF permanently, trigger the CI dispatch (next section).
 
 ### Tailoring Workflow (CI, via workflow_dispatch)
 
@@ -163,7 +156,7 @@ Go to Actions → "Build Resume PDF" → "Run workflow":
 - **DO** reword existing bullets with JD keywords
 - **DO** uncomment archived content if it matches
 - **DO** compile after every edit to verify
-- **DO** use `tailored/<company>-<role>` branches for targeting — never edit `main` directly for tailoring
+- **DO** restore `main` after tailoring with `git checkout src/`
 - **DO NOT** invent new experience, skills, or project details
 - **DO NOT** change the section ordering in `resume.tex`
 - **DO NOT** modify `custom-commands.tex` — macros are stable
