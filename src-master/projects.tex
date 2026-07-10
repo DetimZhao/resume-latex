@@ -1,0 +1,39 @@
+%-----------PROJECTS (MASTER)-----------%
+% All real projects. Agent selects from this for tailoring.
+\section{Projects}
+\resumeSubHeadingListStart
+
+    \resumeProjectHeading
+    {\textbf{AI-Integrated Wireless Emergency Alerts}}{}
+    \resumeItemListStart
+        \resumeItem{Engineered a FastAPI microservice integrating retrieval-augmented generation (RAG) with vector database retrieval to enable semantic search and context-aware LLM responses.}
+        \resumeItem{Designed a Dockerized automation system with custom scheduling and health endpoints to orchestrate data ingestion, scraping, and LLM pipelines.}
+        \resumeItem{Developed a fault-tolerant Python scraper for the PBS WARN API, utilizing exponential backoff to reliably extract and normalize live emergency data.}
+        \resumeItem{Built an automated vector database cleanup service to dynamically prune expired alerts, optimizing retrieval fidelity and reducing database bloat.}
+    \resumeItemListEnd
+
+    \resumeProjectHeading
+    {\textbf{gRPC Microservices System}}{}
+    \resumeItemListStart
+        \resumeItem{Architected a distributed system with 5 gRPC-based microservices, implementing both interactive CLI and automated client interfaces with robust error handling and modular service design.}
+        \resumeItem{Designed gRPC services with Protocol Buffers to enable efficient serialization, persistent data storage, and flexible request handling across multiple microservices.}
+        \resumeItem{Deployed system on AWS EC2 instance with public accessibility, enabling multi-client access and validating concurrent service requests.}
+    \resumeItemListEnd
+
+    \resumeProjectHeading
+    {\textbf{Gym Calendar Application (Memoranda) Modernization}}{}
+    \resumeItemListStart
+        \resumeItem{Designed and implemented a proof-of-concept integration with the Google Calendar API, enabling push of gym class schedules and resolving timezone alignment issues.}
+        \resumeItem{Modernized the itinerary UI to improve usability, tailoring agenda views for students and trainers to display only relevant classes and sessions.}
+        \resumeItem{Refactored legacy Java codebase (25,000+ LOC) to eliminate compiler warnings and improve maintainability while managing Git workflows and merge conflicts.}
+    \resumeItemListEnd
+
+    \resumeProjectHeading
+    {\textbf{Clustering Analysis of Steam Games Using Reviews, Sentiments, and Metadata}}{}
+    \resumeItemListStart
+        \resumeItem{Conducted clustering analysis with Python on 42,497 Steam games using K-Means and Agglomerative Clustering with custom distance metrics, documenting process and findings in academic paper format.}
+        \resumeItem{Scraped and analyzed sentiment from 385 games' English reviews using VADER and vectorized text with BERT embeddings, transforming Steamworks API JSON data into structured formats.}
+        \resumeItem{Built a modular Python pipeline for data collection, preprocessing, and ML analysis using pandas, scikit-learn, and transformers, with Git LFS for large data.}
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd

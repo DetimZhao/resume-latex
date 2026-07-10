@@ -19,8 +19,11 @@ src/
   heading.tex           # Name, email, LinkedIn, GitHub links
   education.tex         # University, degree, GPA, honors
   skills.tex            # Languages, libraries, tools, domains
-  experience.tex        # Work history (reverse chronological, most recent first)
-  projects.tex          # Personal/academic projects
+  experience.tex        # Work history — curated subset for 1-page target
+  projects.tex          # Personal/academic projects — curated subset
+src-master/
+  experience.tex        # ALL real roles and bullets — full inventory
+  projects.tex          # ALL real projects — full inventory, unfiltered
 archive/                # Historical PDFs (manual, not compiled)
 build/                  # Build artifacts (gitignored)
 .devcontainer/          # VS Code Dev Container (texlive + latexmk)
@@ -93,6 +96,7 @@ When asked to tailor the resume for a specific job description (JD):
 - **Keep the same section order** unless instructed otherwise
 - **Match keywords from the JD** using existing content
 - **Can surface commented-out content** (`% \resumeItem{...}`) if it fits the role
+- **Can pull additional content from `src-master/`** — the full inventory of all real experience and projects
 
 ### Per-Section Tailoring Guide
 
@@ -132,7 +136,7 @@ Tailoring edits `src/*.tex` in-place on a branch. `main` stays pristine:
    ```
    "tailor my resume for a platform engineer role at Google. emphasize HPC and Kubernetes."
    ```
-3. opencode reads `src/*.tex` + JD, applies per-section tailoring
+3. opencode reads `src-master/` (full inventory) + JD, selects relevant content into `src/`
 4. opencode compiles with tagged jobname, then cleans aux files (keeps PDF only):
    ```bash
    latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=tailored resume.tex
