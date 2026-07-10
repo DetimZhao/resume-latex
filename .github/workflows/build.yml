@@ -10,6 +10,9 @@ on:
 permissions:
   contents: write
 
+env:
+  RESUME_NAME: Detim_Zhao_Resume
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Compile LaTeX
-        run: latexmk -pdf -outdir=build resume.tex
+        run: latexmk -pdf -jobname=${{ env.RESUME_NAME }} -outdir=build resume.tex
 
       - name: Generate date string
         id: date
@@ -30,12 +33,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: resume-preview
-          path: build/resume.pdf
+          path: build/${{ env.RESUME_NAME }}.pdf
 
       - name: Prepare release assets
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          cp build/resume.pdf build/resume-${{ steps.date.outputs.date }}.pdf
+          cp build/${{ env.RESUME_NAME }}.pdf build/${{ env.RESUME_NAME }}-${{ steps.date.outputs.date }}.pdf
 
       - name: Create Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -44,7 +47,7 @@ jobs:
           tag_name: v${{ steps.date.outputs.date }}
           name: "Resume ${{ steps.date.outputs.date }}"
           files: |
-            build/resume.pdf
-            build/resume-${{ steps.date.outputs.date }}.pdf
+            build/${{ env.RESUME_NAME }}.pdf
+            build/${{ env.RESUME_NAME }}-${{ steps.date.outputs.date }}.pdf
           make_latest: true
           generate_release_notes: false
