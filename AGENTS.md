@@ -198,6 +198,18 @@ Go to Actions → "Build Resume PDF" → "Run workflow":
   - Without: same as canonical build, artifact only
 - Releases use `softprops/action-gh-release@v2` with `make_latest: true`
 
+## Commit Conventions
+
+| Prefix | Purpose | Example |
+|--------|---------|---------|
+| `update:` | Manual content edits to resume source | `update: fix LANL internship end date` |
+| `feat:` | New features or capabilities | `feat: add 1-page enforcement to CI` |
+| `fix:` | Bug fixes | `fix: resume.tex not found in CI` |
+| `docs:` | Documentation (README, AGENTS, VERSIONS) | `docs: add tailoring guide to AGENTS` |
+| `chore:` | Config, CI, cleanup, tooling | `chore: switch to texlive/texlive image` |
+
+The `_build/` sandbox never commits — agent changes are always ephemeral. No `tailor:` prefix needed.
+
 ## Do's and Don'ts
 
 - **DO** reorder items within sections to match JD priority
