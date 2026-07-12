@@ -5,7 +5,8 @@
 This is **Detim Zhao's resume** — a LaTeX source repository that compiles to PDF via GitHub Actions.
 The canonical source lives here. The compiled PDF is published as a GitHub Release on push to `main`.
 
-- **Repo**: private, `detimzhao/resume-latex`
+- **Repo**: public, `detimzhao/resume-latex`
+- **Visibility**: public — the source, commit history, and compiled PDFs are all publicly accessible. No secrets are stored here.
 - **Template origin**: https://github.com/sb2nov/resume (`article` class, `\resumeItem`, `\resumeSubheading`, etc.)
 - **Language**: LaTeX with custom macros in `custom-commands.tex`
 - **Build**: `latexmk -pdf -jobname=Detim_Zhao_Resume -outdir=build resume.tex`
@@ -127,7 +128,7 @@ When asked to tailor the resume for a specific job description (JD):
 - Usually leave as-is
 - Can uncomment `\resumeItem{\textbf{Relevant Coursework:} ...}` line (currently commented out) and update courses to match JD
 
-### Tailoring Workflow (Local, via opencode)
+### Tailoring Workflow (Local, via AI agent)
 
 Tailoring uses a `_build/` sandbox — `src/`, git, and `main` are never touched:
 

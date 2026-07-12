@@ -1,6 +1,33 @@
 # Resume Repository
 
-Detim Zhao's resume — LaTeX source compiled to PDF via GitHub Actions. Private source, public PDF via Releases.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+Detim Zhao's resume — LaTeX source compiled to PDF via GitHub Actions.
+
+## Latest Resume
+**Download**: **[Detim_Zhao_Resume.pdf](https://github.com/DetimZhao/resume-latex/releases/latest/download/Detim_Zhao_Resume.pdf)**
+
+---
+
+## Using This Template
+
+If you're forking this repo to build your own resume:
+
+### Repo Setup
+
+1. In `.github/workflows/build.yml`, change `BASE_NAME: Detim_Zhao_Resume` to your name
+2. In this README:
+   - replace `DetimZhao/resume-latex` in the badge and download link with your own repo
+   - update the title ("Detim Zhao's resume") and tailorable contact links
+
+### Resume Content
+
+3. Edit `src/heading.tex` — your name, email, LinkedIn, GitHub URLs
+4. Edit `src/education.tex` — your school, degree, GPA
+5. Edit `src/experience.tex` — your work history. Use `src-master/experience.tex` as full inventory for tailoring
+6. Edit `src/projects.tex` — your projects. Use `src-master/projects.tex` as full inventory
+7. Edit `src/skills.tex` — your languages, libraries, tools, domains
+8. (Optional) Clear `archive/` and update `VERSIONS.md`
 
 ## Quick Start
 
@@ -10,7 +37,7 @@ Detim Zhao's resume — LaTeX source compiled to PDF via GitHub Actions. Private
 
 ### Open in Dev Container
 1. Open this folder in VSCode
-2. `F1` → "Dev Containers: Rebuild and Reopen in Container"
+2. Open the Command Palette (`Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux / `F1`) and run "Dev Containers: Rebuild and Reopen in Container"
 3. Wait for container to build (first time only, ~2 min)
 
 ### Local Development
@@ -28,21 +55,7 @@ latexmk -pdf -jobname=Detim_Zhao_Resume -outdir=build resume.tex
 
 ## Tailoring for a Job
 
-```bash
-# 1. Create a branch
-git checkout -b tailored/<company>-<role>
-
-# 2. Edit src/*.tex (or use opencode agent)
-latexmk -pdf -jobname=Detim_Zhao_Resume-<Company>-<Role> -outdir=tailored resume.tex
-latexmk -c -outdir=tailored   # clean aux files, keep PDF only
-
-# 3. Check page count
-pdfinfo tailored/Detim_Zhao_Resume-*.pdf | grep Pages
-
-# 4. When done
-git checkout main
-git branch -D tailored/<company>-<role>
-```
+Use an AI coding agent (e.g. Claude Code, opencode, Codex CLI) to tailor the resume for a specific job description. See [AGENTS.md](AGENTS.md) for the full workflow — it handles content selection, compilation, and 1-page enforcement without touching `src/` or git.
 
 ## CI/CD
 
@@ -61,10 +74,11 @@ git branch -D tailored/<company>-<role>
 
 ## Project Structure
 
-```
+```txt
 .
 ├── resume.tex              # Main document → \input{src/...}
 ├── custom-commands.tex     # \newcommand macros
+├── LICENSE                 # MIT
 ├── src/                    # Canonical (1-page), curated for general use
 │   ├── heading.tex
 │   ├── education.tex
@@ -77,19 +91,15 @@ git branch -D tailored/<company>-<role>
 ├── build/                  # Canonical build artifacts (gitignored)
 ├── tailored/               # Tailored build artifacts (gitignored)
 ├── archive/                # Historical PDFs
-│   ├── resume-2024-01-15.pdf
-│   └── resume-2024-06-20.pdf
 ├── VERSIONS.md             # Version log
-├── AGENTS.md               # Agent instructions (opencode)
+├── AGENTS.md               # Instructions for AI coding agents
 ├── .devcontainer/          # VS Code Dev Container
 └── .github/workflows/      # CI: push → compile → Release
 ```
 
-## Archive Old Versions
+## Archive
 
-1. Place PDFs in `archive/`
-2. Update `VERSIONS.md` with date/tag/notes
-3. Commit and push
+Old resume PDFs live in `archive/`. See [VERSIONS.md](VERSIONS.md) for the full changelog.
 
 ## Useful Commands
 
