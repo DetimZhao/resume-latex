@@ -125,8 +125,7 @@ When asked to tailor the resume for a specific job description (JD):
 - **Can drop projects** that don't match by commenting them out
 
 #### `src/education.tex`
-- Usually leave as-is
-- Can uncomment `\resumeItem{\textbf{Relevant Coursework:} ...}` line (currently commented out) and update courses to match JD
+- Leave as-is
 
 ### Tailoring Workflow (Local, via AI agent)
 
@@ -144,11 +143,11 @@ Tailoring uses a `_build/` sandbox — `src/`, git, and `main` are never touched
    - `_build/src/projects.tex` — selects and rewrites projects from `src-master/projects.tex`
    - `_build/src/skills.tex` — optionally reorders skills to match JD keywords
 
-3. Agent compiles from inside `_build/` (so `\input{src/...}` resolves to sandboxed copies):
+3. Agent compiles from inside `_build/` (so `\input{src/...}` resolves to sandboxed copies).
+   **Important**: mount the repo root (not just `_build/`) so `../tailored/` is on the host filesystem:
    ```bash
-   cd _build
-   latexmk -pdf -jobname=Detim_Zhao_Resume-Google-PlatformEngineer -outdir=../tailored resume.tex
-   cd ..
+   docker run --rm -v "$PWD":/workspace -w /workspace/_build texlive/texlive:latest \
+     latexmk -pdf -jobname=Detim_Zhao_Resume-<Company>-<Role> -outdir=../tailored resume.tex
    ```
 
 4. Agent checks page count:
@@ -187,6 +186,12 @@ Go to Actions → "Build Resume PDF" → "Run workflow":
 - **1-page target**: if additions push to 2 pages, drop or compress less relevant content
 - **ATS-friendly**: keep plain text, avoid images/special characters
 - **Truthful**: every skill and achievement must be real
+
+## Owner Preferences
+
+These are Detim Zhao's personal preferences for how the resume is managed. AI agents tailoring this resume should follow these:
+
+- **No relevant coursework**: Detim is a recent graduate with internship experience — relevant coursework is unnecessary and should never be included in `src/education.tex`.
 
 ## CI/CD Behavior
 
