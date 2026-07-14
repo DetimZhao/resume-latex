@@ -65,6 +65,30 @@ latexmk -C -outdir=build          # Full clean (removes PDF too)
 - **`workflow_dispatch`**: manual trigger (for future agent-driven tailoring)
 - **Environment variable**: `BASE_NAME: Detim_Zhao_Resume` controls output filename
 
+## Safe Editing for Agents
+
+When editing `.tex` source files (experience, projects, skills, etc.), follow these rules to
+avoid corrupting the document:
+
+### Targeted Edits (Always Preferred)
+- **Find-and-replace a unique, verbatim string** in the file
+- The `search` string must match **exactly once** (whitespace, line endings, all characters)
+- If 0 matches → the content may have changed; re-read the file and try again
+- If >1 matches → include more surrounding context lines to disambiguate
+- Prefer this for small changes: wording, a bullet point, a date, a number
+
+### Full Rewrites (Use Sparingly)
+- Replace the **entire file** only for the first draft or large reorganizations
+- Always output a complete, valid, compilable `.tex` fragment (matching the surrounding
+  file's command conventions — see [LaTeX Conventions](#latex-conventions))
+- Only use `\resumeItem`, `\resumeSubheading`, etc. — do not invent new macros
+
+### Post-Edit Validation
+- After any edit, re-read the file to confirm the change was applied correctly
+- Verify balanced braces, `\begin`/`\end` pairs, and correct macro usage
+
+---
+
 ## LaTeX Conventions
 
 ### Custom Commands (defined in `custom-commands.tex`)
@@ -96,6 +120,8 @@ When asked to tailor the resume for a specific job description (JD):
 - **Reorder, reword, emphasize, de-emphasize** — don't invent
 - **Keep the same section order** unless instructed otherwise
 - **Match keywords from the JD** using existing content
+- **Can web-search the company** to learn about their tech stack, recent engineering
+  blog posts, or product context — helps match keywords in bullets
 - **Can surface commented-out content** (`% \resumeItem{...}`) if it fits the role
 - **Can pull additional content from `src-master/`** — the full inventory of all real experience and projects
 
@@ -138,6 +164,13 @@ Tailoring uses a `_build/` sandbox — `src/`, git, and `main` are never touched
    cp src/heading.tex src/education.tex src/skills.tex _build/src/
    ```
 
+1b. Agent snapshots current source state for revision tracking:
+    ```bash
+    mkdir -p revisions
+    TS=$(date +%Y%m%d-%H%M)
+    cp -r src/ "revisions/$TS-before/"
+    ```
+
 2. Agent reads `src-master/` (full inventory) + JD, then writes tailored content into `_build/src/`:
    - `_build/src/experience.tex` — selects and rewrites experience from `src-master/experience.tex`
    - `_build/src/projects.tex` — selects and rewrites projects from `src-master/projects.tex`
@@ -163,6 +196,12 @@ Tailoring uses a `_build/` sandbox — `src/`, git, and `main` are never touched
    ```
 
 6. You review `tailored/Detim_Zhao_Resume-Google-PlatformEngineer.pdf`
+
+6b. Agent snapshots tailored state and saves job description:
+    ```bash
+    cp -r _build/src/ "revisions/$TS-after/"
+    cp job_description.txt tailored/ 2>/dev/null || true
+    ```
 
 7. If changes needed: agent edits `_build/src/*.tex`, recompiles, checks pages again
 
@@ -221,9 +260,11 @@ The `_build/` sandbox never commits — agent changes are always ephemeral. No `
 - **DO** reorder items within sections to match JD priority
 - **DO** reword existing bullets with JD keywords
 - **DO** uncomment archived content if it matches
+- **DO** use targeted find-and-replace for small edits — not full file rewrites
 - **DO** compile after every edit to verify
 - **DO NOT** invent new experience, skills, or project details
 - **DO NOT** change the section ordering in `resume.tex`
 - **DO NOT** modify `custom-commands.tex` — macros are stable
 - **DO NOT** commit build artifacts (they're gitignored)
 - **DO NOT** create new `.tex` files in `src/` — use existing files only
+- **DO NOT** rewrite entire files for minor changes — use find-and-replace

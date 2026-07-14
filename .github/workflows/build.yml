@@ -46,7 +46,19 @@ jobs:
           fi
 
       - name: Compile LaTeX
-        run: latexmk -pdf -jobname=${{ steps.filename.outputs.jobname }} -outdir=build resume.tex
+        id: compile
+        run: |
+          if latexmk -pdf -jobname=${{ steps.filename.outputs.jobname }} -outdir=build resume.tex > build/compile.log 2>&1; then
+            echo "success=true" >> $GITHUB_OUTPUT
+          else
+            echo "success=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Report LaTeX errors
+        if: steps.compile.outputs.success == 'false'
+        run: |
+          echo "::error::LaTeX compilation failed — see details below"
+          bash scripts/parse-latex-errors.sh build/compile.log
 
       - name: Check page count
         run: |
@@ -92,3 +104,17 @@ jobs:
             build/${{ steps.filename.outputs.jobname }}-${{ steps.date.outputs.date }}.pdf
           make_latest: true
           generate_release_notes: false
+
+      - name: Cleanup old releases (keep last 10)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Cleaning releases — keeping the 10 most recent"
+          gh release list --limit 100 --json tagName,createdAt --jq \
+            "sort_by(.createdAt) | reverse | .[10:] | .[].tagName" | \
+            while read -r tag; do
+              echo "Deleting release: $tag"
+              gh release delete "$tag" --yes --cleanup-tag
+            done
+          echo "Release cleanup complete."

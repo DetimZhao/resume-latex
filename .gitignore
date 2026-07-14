@@ -1,6 +1,7 @@
 build/
 tailored/
 _build/
+revisions/
 *.aux
 *.log
 *.out
