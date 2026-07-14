@@ -48,6 +48,7 @@ jobs:
       - name: Compile LaTeX
         id: compile
         run: |
+          mkdir -p build
           if latexmk -pdf -jobname=${{ steps.filename.outputs.jobname }} -outdir=build resume.tex > build/compile.log 2>&1; then
             echo "success=true" >> $GITHUB_OUTPUT
           else
