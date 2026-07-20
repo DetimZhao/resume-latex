@@ -18,7 +18,7 @@ resume.tex              # Main document — preamble, \begin{document}, \input{s
 custom-commands.tex     # \newcommand macros (\resumeItem, \resumeSubheading, etc.)
 src/
   heading.tex           # Name, email, LinkedIn, GitHub links
-  education.tex         # University, degree, GPA, honors
+  education.tex         # University and degree
   skills.tex            # Languages, libraries, tools, domains
   experience.tex        # Work history — curated subset for 1-page target
   projects.tex          # Personal/academic projects — curated subset
@@ -106,10 +106,10 @@ avoid corrupting the document:
 
 ### Section Order (in `resume.tex`)
 1. Heading
-2. Education
-3. Skills
-4. Experience
-5. Projects
+2. Skills
+3. Experience
+4. Projects
+5. Education
 
 ## Tailoring the Resume for a Role
 
@@ -231,6 +231,37 @@ Go to Actions → "Build Resume PDF" → "Run workflow":
 These are Detim Zhao's personal preferences for how the resume is managed. AI agents tailoring this resume should follow these:
 
 - **No relevant coursework**: Detim is a recent graduate with internship experience — relevant coursework is unnecessary and should never be included in `src/education.tex`.
+
+## Content Density
+
+When the page has unused whitespace and can accommodate more content, or when content needs to be
+squeezed to fit one page, the following knobs are available. These should be adjusted
+conservatively — no single change should exceed ~2pt at a time.
+
+### Spacing Knobs (in `custom-commands.tex`)
+
+| Location | Default | Range | Effect |
+|----------|---------|-------|--------|
+| `\resumeSubheading` top | `\vspace{-2pt}` | `-4pt` to `0pt` | Gap above each role header |
+| `\resumeSubheading` bottom | `\vspace{-7pt}` | `-9pt` to `-5pt` | Gap after each role header |
+| `\resumeItem` bottom | `\vspace{-2pt}` | `-4pt` to `0pt` | Gap between bullet points |
+| `\resumeItemListEnd` bottom | `\vspace{-5pt}` | `-7pt` to `-3pt` | Gap after a bullet list |
+
+### Page Geometry (in `resume.tex`)
+
+| Location | Default | Range | Effect |
+|----------|---------|-------|--------|
+| Top margin (`\topmargin`) | `-0.5in` | `-0.6in` to `-0.4in` | Vertical space above header |
+| Text height (`\textheight`) | `+1.0in` | `+1.1in` to `+0.9in` | Total body text height |
+| Section title top (`\titleformat`) | `\vspace{-4pt}` | `-6pt` to `-2pt` | Gap above each section title |
+| Section title bottom (`\titleformat`) | `\vspace{-5pt}` | `-7pt` to `-3pt` | Gap below section title rule |
+
+### Guidelines
+
+- Prefer adjusting item-level spacing (`\resumeItem`, `\resumeSubheading`) over page geometry
+- Never change the font size — it stays at `11pt`
+- After any spacing change, recompile and verify the page count
+- If whitespace is abundant, add or restore content bullets rather than loosening spacing
 
 ## CI/CD Behavior
 
