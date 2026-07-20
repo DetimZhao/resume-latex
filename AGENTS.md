@@ -245,15 +245,15 @@ conservatively — no single change should exceed ~2pt at a time.
 |----------|---------|-------|--------|
 | `\resumeSubheading` top | `\vspace{-2pt}` | `-4pt` to `0pt` | Gap above each role header |
 | `\resumeSubheading` bottom | `\vspace{-7pt}` | `-9pt` to `-5pt` | Gap after each role header |
-| `\resumeItem` bottom | `\vspace{-2pt}` | `-4pt` to `0pt` | Gap between bullet points |
-| `\resumeItemListEnd` bottom | `\vspace{-5pt}` | `-7pt` to `-3pt` | Gap after a bullet list |
+| `\resumeItem` bottom | `\vspace{-4pt}` | `-4pt` to `0pt` | Gap between bullet points |
+| `\resumeItemListEnd` bottom | `\vspace{-7pt}` | `-7pt` to `-3pt` | Gap after a bullet list |
 
 ### Page Geometry (in `resume.tex`)
 
 | Location | Default | Range | Effect |
 |----------|---------|-------|--------|
-| Top margin (`\topmargin`) | `-0.5in` | `-0.6in` to `-0.4in` | Vertical space above header |
-| Text height (`\textheight`) | `+1.0in` | `+1.1in` to `+0.9in` | Total body text height |
+| Top margin (`\topmargin`) | `-0.7in` | `-0.75in` to `-0.5in` | Vertical space above header |
+| Text height (`\textheight`) | `+1.25in` | `+1.25in` to `+1.0in` | Total body text height |
 | Section title top (`\titleformat`) | `\vspace{-4pt}` | `-6pt` to `-2pt` | Gap above each section title |
 | Section title bottom (`\titleformat`) | `\vspace{-5pt}` | `-7pt` to `-3pt` | Gap below section title rule |
 
