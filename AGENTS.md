@@ -245,7 +245,7 @@ conservatively — no single change should exceed ~2pt at a time.
 |----------|---------|-------|--------|
 | `\resumeSubheading` top | `\vspace{-2pt}` | `-4pt` to `0pt` | Gap above each role header |
 | `\resumeSubheading` bottom | `\vspace{-7pt}` | `-9pt` to `-5pt` | Gap after each role header |
-| `\resumeItem` bottom | `\vspace{-4pt}` | `-4pt` to `0pt` | Gap between bullet points |
+| `\resumeItem` bottom | `\vspace{-3pt}` | `-4pt` to `0pt` | Gap between bullet points |
 | `\resumeItemListEnd` bottom | `\vspace{-7pt}` | `-7pt` to `-3pt` | Gap after a bullet list |
 
 ### Page Geometry (in `resume.tex`)
