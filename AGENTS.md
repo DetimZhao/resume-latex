@@ -231,6 +231,7 @@ Go to Actions → "Build Resume PDF" → "Run workflow":
 These are Detim Zhao's personal preferences for how the resume is managed. AI agents tailoring this resume should follow these:
 
 - **No relevant coursework**: Detim is a recent graduate with internship experience — relevant coursework is unnecessary and should never be included in `src/education.tex`.
+- **STAR format in bullets**: resume bullets should follow the STAR pattern (Situation, Task, Action, Result) to the extent space allows. At minimum, every bullet should start with a strong past-tense action verb (e.g., *Built*, *Designed*, *Developed*, *Engineered*) — avoid passive openers like *Collaborated on*, *Worked on*, *Helped with*.
 
 ## Content Density
 
