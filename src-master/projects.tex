@@ -16,20 +16,20 @@
     {\textbf{gRPC Microservices System}}{}
     \resumeItemListStart
         \resumeItem{Architected a distributed system with 5 gRPC-based microservices, implementing both interactive CLI and automated client interfaces with robust error handling and modular service design.}
-        \resumeItem{Designed gRPC services with Protocol Buffers to enable efficient serialization, persistent data storage, and flexible request handling across multiple microservices.}
+        \resumeItem{Implemented 5 gRPC services (Fitness, RecipeBook, Sort, Joke, Echo) with Protocol Buffers, file-based persistence, a service registry for discovery, and thread-safe concurrent request handling.}
         \resumeItem{Deployed system on AWS EC2 instance with public accessibility, enabling multi-client access and validating concurrent service requests.}
     \resumeItemListEnd
 
     \resumeProjectHeading
     {\textbf{MotoMart WebUI}}{}
     \resumeItemListStart
-        \resumeItem{Built a React vehicle marketplace SPA with React Router and Axios integration against a Java REST backend, refactoring the vehicle details component with CSS modules for enhanced attribute display.}
+        \resumeItem{Built a React vehicle marketplace SPA with React Router and Axios integration against a .NET 8 REST backend, refactoring the vehicle details component with CSS modules for enhanced attribute display.}
     \resumeItemListEnd
 
     \resumeProjectHeading
     {\textbf{Gym Calendar Application (Memoranda) Modernization}}{}
     \resumeItemListStart
-        \resumeItem{Designed and implemented a proof-of-concept integration with the Google Calendar API, enabling push of gym class schedules and resolving timezone alignment issues.}
+        \resumeItem{Integrated Google Calendar API with OAuth2 to synchronize cross-timezone class schedules, implementing push-based event creation and resolving datetime offset conflicts.}
         \resumeItem{Modernized the itinerary UI to improve usability, tailoring agenda views for students and trainers to display only relevant classes and sessions.}
         \resumeItem{Refactored legacy Java codebase (25,000+ LOC) to eliminate compiler warnings and improve maintainability while managing Git workflows and merge conflicts.}
     \resumeItemListEnd
@@ -40,6 +40,21 @@
         \resumeItem{Conducted clustering analysis with Python on 42,497 Steam games using K-Means and Agglomerative Clustering with custom distance metrics, documenting process and findings in academic paper format.}
         \resumeItem{Scraped and analyzed sentiment from 385 games' English reviews using VADER and vectorized text with BERT embeddings, transforming Steamworks API JSON data into structured formats.}
         \resumeItem{Built a modular Python pipeline for data collection, preprocessing, and ML analysis using pandas, scikit-learn, and transformers, with Git LFS for large data.}
+    \resumeItemListEnd
+
+    \resumeProjectHeading
+    {\textbf{Distributed Parallel Sum System}}{}
+    \resumeItemListStart
+        \resumeItem{Architected a leader-coordinated distributed computation system that splits integer arrays across 3 worker nodes using ExecutorService thread pools, achieving a 2.6x speedup over sequential execution (934ms to 353ms).}
+        \resumeItem{Implemented cross-verification consensus where each node recomputes another node's partition to validate correctness, and designed a fault injection flag enabling intentional errors to verify the consensus mechanism detected corrupted partial sums.}
+    \resumeItemListEnd
+
+    \resumeProjectHeading
+    {\textbf{Protobuf-Based Sudoku Game Server}}{}
+    \resumeItemListStart
+        \resumeItem{Built a multi-client Sudoku game server with a custom 18-message Protocol Buffers protocol (6 request types, 7 response types, 11 evaluation types), handling concurrent player sessions with thread-safe scoring and file-based leaderboard persistence.}
+        \resumeItem{Designed a state machine-based client-server protocol directing gameplay flow, with configurable difficulty (1--20), board clear operations (cell/row/column/grid), and a persistent leaderboard surviving server restarts.}
+        \resumeItem{Deployed server on AWS EC2 for multi-client public access, validating concurrent gameplay and protocol robustness across remote connections.}
     \resumeItemListEnd
 
 \resumeSubHeadingListEnd
