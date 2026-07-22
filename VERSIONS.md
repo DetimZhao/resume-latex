@@ -2,6 +2,7 @@
 
 | Date | Tag | Notes |
 |------|-----|-------|
+| 2026-07-22 | 20260722-2230 | **Skills reorganized** from 3 overlapping groups into 5 focused categories: Programming Languages, Libraries & Frameworks, Infrastructure & DevOps, APIs/AI/Data, and Tools. Added Linux, Pytest, and JUnit. Moved Flask and FastAPI out of APIs into Libraries & Frameworks. Dropped Bruno. Commented out React/JS/HTML/CSS for optional tailoring. **Spacing tightened** to fit expanded skills section: resumeItem bottom -3pt -> -4pt, resumeSubheading top vspace removed, skills->experience gap set to -14.2pt to visually match experience->projects. **Bullet improvements**: gRPC bullet now names 5 services + registry; Gym Calendar rewritten around OAuth2/cross-timezone sync; XR bullet ending replaced with concrete calibration outcome. **Master inventory updated**: fixed MotoMart backend from Java to .NET 8, added Distributed Parallel Sum and Protobuf Sudoku projects. |
 | 2026-07-19 | v20260720-0607 | Major restructure: dropped HPC from main resume, moved education to bottom, tightened 20+ bullets for clarity and STAR compliance, added Gym Calendar project, specified ML algorithms in experience, restructured skills categories, documented content density knobs and STAR format in AGENTS.md |
 | 2026-07-10 | v20260710-1135 | Dev Container + CI, src-master inventory, 1-page gate |
 | 2026-07-10 | v20260710 | Initial setup with Docker + CI |
